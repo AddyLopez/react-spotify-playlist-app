@@ -1,0 +1,22 @@
+section.Track {
+  padding: 5px 0;
+  border-top: 1px solid #000;
+}
+
+.Track h3 {
+  margin: 0;
+}
+
+.Track p {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+span.album {
+  font-style: italic;
+}
+
+button.track-action {
+  border-radius: 8px;
+  display: inline;
+}

@@ -4,3 +4,9 @@ section.Playlist {
   margin-left: 25px;
   padding: 20px;
 }
+
+button.save-playlist {
+  border-radius: 8px;
+  margin-top: 15px;
+  padding: 4px;
+}

@@ -5,10 +5,11 @@ import Tracklist from "../Tracklist/Tracklist.js";
 function Playlist() {
   return (
     <section className="Playlist">
-      <p>Hello, from Playlist!</p>
+      <h2>New Playlist</h2>
       <section>
         <Tracklist />
       </section>
+      <button className="save-playlist">Save to Spotify</button>
     </section>
   );
 }
