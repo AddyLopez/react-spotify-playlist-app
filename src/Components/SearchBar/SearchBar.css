@@ -1,0 +1,13 @@
+input {
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 25px 5px;
+  padding: 5px;
+  text-align: center;
+  width: 45%;
+}
+
+.icon {
+  position: relative;
+  left: 30px;
+}
