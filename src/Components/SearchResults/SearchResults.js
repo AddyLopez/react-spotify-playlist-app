@@ -1,10 +1,12 @@
 import React from "react";
 import "./SearchResults.css";
+import Tracklist from "../Tracklist/Tracklist.js";
 
 function SearchResults() {
   return (
     <section className="SearchResults">
-      <p>Hello, from SearchResults!</p>
+      <h2>Results</h2>
+      <Tracklist />
     </section>
   );
 }
