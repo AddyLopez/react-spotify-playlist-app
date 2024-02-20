@@ -4,10 +4,12 @@ import Tracklist from "../Tracklist/Tracklist.js";
 
 function Playlist() {
   return (
-    <>
+    <section className="Playlist">
       <p>Hello, from Playlist!</p>
-      <Tracklist />
-    </>
+      <section>
+        <Tracklist />
+      </section>
+    </section>
   );
 }
 
