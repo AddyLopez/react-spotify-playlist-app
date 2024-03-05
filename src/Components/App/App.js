@@ -6,6 +6,12 @@ import Playlist from "../Playlist/Playlist.js";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
+  const [playlistTitle, setPlaylistTitle] = useState("Playlist Title");
+  const [playlist, setPlaylist] = useState([
+    "track_one",
+    "track_two",
+    "track_three",
+  ]);
 
   return (
     <div className="App">
@@ -16,7 +22,7 @@ function App() {
       </header>
       <main>
         <SearchResults searchResults={searchResults} />
-        <Playlist />
+        <Playlist playlistTitle={playlistTitle} playlist={playlist} />
       </main>
     </div>
   );
