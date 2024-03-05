@@ -2,12 +2,12 @@ import React from "react";
 import "./Playlist.css";
 import Tracklist from "../Tracklist/Tracklist.js";
 
-function Playlist() {
+function Playlist({ playlistTitle, playlist }) {
   return (
     <section className="Playlist">
-      <h2>New Playlist</h2>
+      <h2>{playlistTitle}</h2>
       <section>
-        <Tracklist />
+        <Tracklist playlist={playlist} />
       </section>
       <button className="save-playlist">Save to Spotify</button>
     </section>
