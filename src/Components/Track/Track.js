@@ -1,7 +1,7 @@
 import React from "react";
 import "./Track.css";
 
-function Track(props) {
+function Track({ isDelete, track }) {
   const renderButton = () => {
     if (props.isDelete) {
       return <button className="track-action">-</button>;
@@ -12,10 +12,10 @@ function Track(props) {
 
   return (
     <section className="Track">
-      <h3>Track Name</h3>
+      <h3>{track.name}</h3>
       <p>
-        <span>Artist</span>
-        <span className="album">Album</span>
+        <span>{track.artist}</span>
+        <span className="album">{track.album}</span>
         <span>{renderButton()}</span>
       </p>
     </section>
