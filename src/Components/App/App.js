@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
 import Playlist from "../Playlist/Playlist.js";
 
 function App() {
+  const [searchResults, setSearchResults] = useState([]);
+
   return (
     <div className="App">
       <header>
@@ -13,7 +15,7 @@ function App() {
         <SearchBar />
       </header>
       <main>
-        <SearchResults />
+        <SearchResults searchResults={searchResults} />
         <Playlist />
       </main>
     </div>
