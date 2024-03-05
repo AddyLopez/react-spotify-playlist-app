@@ -13,6 +13,16 @@ function App() {
     "track_three",
   ]);
 
+  const addTrack = (newTrack) => {
+    if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
+      return;
+    } else {
+      setPlaylist((previous) => {
+        [...previous, track];
+      });
+    }
+  };
+
   return (
     <div className="App">
       <header>
@@ -21,7 +31,7 @@ function App() {
         <SearchBar />
       </header>
       <main>
-        <SearchResults searchResults={searchResults} />
+        <SearchResults searchResults={searchResults} onAdd={addTrack} />
         <Playlist playlistTitle={playlistTitle} playlist={playlist} />
       </main>
     </div>
