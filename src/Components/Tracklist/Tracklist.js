@@ -2,12 +2,20 @@ import React from "react";
 import "./Tracklist.css";
 import Track from "../Track/Track.js";
 
-function Tracklist({ searchResults, onAdd, isDelete }) {
+function Tracklist({ isDelete, onAdd, onDelete, searchResults }) {
   return (
     <>
       <p>Hello, from Tracklist!</p>
       {searchResults.map((track) => {
-        return <Track key={track.id} track={track} onAdd={onAdd} />;
+        return (
+          <Track
+            key={track.id}
+            track={track}
+            onAdd={onAdd}
+            onDelete={onDelete}
+            isDelete={isDelete}
+          />
+        );
       })}
     </>
   );
