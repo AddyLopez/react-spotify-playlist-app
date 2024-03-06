@@ -23,6 +23,12 @@ function App() {
     }
   };
 
+  const deleteTrack = (track) => {
+    setPlaylist((playlist) => {
+      playlist.filter((savedTrack) => savedTrack.id !== track.id);
+    });
+  };
+
   return (
     <div className="App">
       <header>
@@ -32,7 +38,11 @@ function App() {
       </header>
       <main>
         <SearchResults searchResults={searchResults} onAdd={addTrack} />
-        <Playlist playlistTitle={playlistTitle} playlist={playlist} />
+        <Playlist
+          playlistTitle={playlistTitle}
+          playlist={playlist}
+          onDelete={deleteTrack}
+        />
       </main>
     </div>
   );
