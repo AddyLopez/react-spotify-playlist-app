@@ -29,8 +29,8 @@ function App() {
     });
   };
 
-  const updatePlaylistTitle = (title) => {
-    setPlaylistTitle(title);
+  const updatePlaylistTitle = (newTitle) => {
+    setPlaylistTitle(newTitle);
   };
 
   return (

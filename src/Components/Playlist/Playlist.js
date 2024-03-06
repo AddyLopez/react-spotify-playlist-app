@@ -2,10 +2,14 @@ import React from "react";
 import "./Playlist.css";
 import Tracklist from "../Tracklist/Tracklist.js";
 
-function Playlist({ onDelete, playlistTitle, playlist }) {
+function Playlist({ onDelete, onTitleChange, playlistTitle, playlist }) {
+  const handleTitleChange = (event) => {
+    onTitleChange(event.target.value);
+  };
+
   return (
     <section className="Playlist">
-      <h2>{playlistTitle}</h2>
+      <input onChange={handleTitleChange} defaultValue={playlistTitle} />
       <section>
         <Tracklist playlist={playlist} onDelete={onDelete} isDelete={true} />
       </section>
