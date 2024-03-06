@@ -29,6 +29,10 @@ function App() {
     });
   };
 
+  const updatePlaylistTitle = (title) => {
+    setPlaylistTitle(title);
+  };
+
   return (
     <div className="App">
       <header>
@@ -42,6 +46,7 @@ function App() {
           playlistTitle={playlistTitle}
           playlist={playlist}
           onDelete={deleteTrack}
+          onTitleChange={updatePlaylistTitle}
         />
       </main>
     </div>
