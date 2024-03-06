@@ -1,12 +1,20 @@
 import React from "react";
 import "./Track.css";
 
-function Track({ isDelete, track }) {
+function Track({ isDelete, onAdd, track }) {
+  const addTrack = (event) => {
+    onAdd(track);
+  };
+
   const renderButton = () => {
-    if (props.isDelete) {
+    if (isDelete) {
       return <button className="track-action">-</button>;
     } else {
-      return <button className="track-action">+</button>;
+      return (
+        <button className="track-action" onClick={addTrack}>
+          +
+        </button>
+      );
     }
   };
 
