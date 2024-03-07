@@ -37,12 +37,16 @@ function App() {
     const trackURIs = playlist.map((track) => track.uri);
   };
 
+  const search = (searchTerm) => {
+    console.log(searchTerm);
+  };
+
   return (
     <div className="App">
       <header>
         <h1>React Spotify Playlist Application</h1>
         <p>Future info about how to use this app.</p>
-        <SearchBar />
+        <SearchBar onSearch={search} />
       </header>
       <main>
         <SearchResults searchResults={searchResults} onAdd={addTrack} />
