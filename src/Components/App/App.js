@@ -18,7 +18,7 @@ function App() {
       return;
     } else {
       setPlaylist((previous) => {
-        [...previous, track];
+        [...previous, newTrack];
       });
     }
   };
