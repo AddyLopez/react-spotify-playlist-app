@@ -9,7 +9,7 @@ const Spotify = {
       return accessToken;
     }
 
-    const tokenIsMatch = window.location.href.match(/accesstoken=([^&]*)/);
+    const tokenIsMatch = window.location.href.match(/accesstoken=([^&]*)/); //window.location.href grabs the URL of the current page
     const expirationIsSet = window.location.href.match(/expires_in=([^&]*)/);
     if (tokenIsMatch && expirationIsSet) {
       // If access token is not already set, check the URL to see if token has just been obtained and is set to expire.
@@ -25,6 +25,35 @@ const Spotify = {
       // If access token variable is empty and not in the URL, then redirect user to Spotify to login.
       const apiURL = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
       window.location = apiURL;
+    }
+  },
+  async search(searchTerm) {
+    // might need to refactor to a promise chain using the then method.
+    const token = await Spotify.getAccessToken();
+    const response = await fetch(
+      `
+https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const json = await response.json();
+    console.log(json);
+    if (!json.tracks) {
+      return [];
+    } else {
+      const tracks = json.tracks.items.map((item) => {
+        ({
+          id: item.id,
+          name: item.name,
+          artist: item.artists[0].name,
+          album: item.album.name,
+          uri: item.uri,
+        });
+      });
+      return tracks;
     }
   },
 };
