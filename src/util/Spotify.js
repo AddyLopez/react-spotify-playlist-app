@@ -56,6 +56,48 @@ https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
       return tracks;
     }
   },
+  async savePlaylist(playlistTitle, trackURIs) {
+    if (!playlistTitle || !trackURIs) {
+      return;
+    }
+    const token = await Spotify.getAccessToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    //get current user's id
+    const response = await fetch("https://api.spotify.com/v1/me", {
+      headers: headers,
+      method: "GET",
+    });
+    const json = await response.json();
+    console.log(json);
+    const userID = json.id;
+
+    //post playlist's title to current user's account
+    const playlistResponse = await fetch(
+      `https://api.spotify.com/v1/${userID}/playlists`,
+      {
+        headers: headers,
+        method: "POST",
+        body: JSON.stringify({ name: playlistTitle }),
+      }
+    );
+    //post track uri's to playlist newly entitled on current user's account
+    const jsonPlaylistResponse = await playlistResponse.json();
+    console.log(jsonPlaylistResponse);
+    const playlistID = jsonPlaylistResponse.id;
+    const tracksResponse = await fetch(
+      `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`,
+      {
+        headers: headers,
+        method: "POST",
+        body: JSON.stringify({ uris: trackURIs }),
+      }
+    );
+    const jsonTracksResponse = await tracksResponse.json();
+    console.log(jsonTracksResponse);
+    return jsonTracksResponse;
+  },
 };
 
 export default Spotify;
