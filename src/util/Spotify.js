@@ -27,76 +27,82 @@ const Spotify = {
       window.location = apiURL;
     }
   },
-  async search(searchTerm) {
+  search(searchTerm) {
     // might need to refactor to a promise chain using the then method.
-    const token = await Spotify.getAccessToken();
-    const response = await fetch(
-      `
-https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
+    const token = Spotify.getAccessToken();
+    return fetch(
+      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
-    );
-    const json = await response.json();
-    console.log(json);
-    if (!json.tracks) {
-      return [];
-    } else {
-      const tracks = json.tracks.items.map((item) => {
-        ({
-          id: item.id,
-          name: item.name,
-          artist: item.artists[0].name,
-          album: item.album.name,
-          uri: item.uri,
-        });
+    )
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((json) => {
+        if (!json.tracks) {
+          return [];
+        } else {
+          const tracks = json.tracks.items.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              artist: item.artists[0].name,
+              album: item.album.name,
+              uri: item.uri,
+            };
+          });
+          console.log(tracks);
+          return tracks;
+        }
       });
-      return tracks;
-    }
   },
-  async savePlaylist(playlistTitle, trackURIs) {
+  savePlaylist(playlistTitle, trackURIs) {
     if (!playlistTitle || !trackURIs) {
       return;
     }
-    const token = await Spotify.getAccessToken();
+    const token = Spotify.getAccessToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
+    let userID;
     //get current user's id
-    const response = await fetch("https://api.spotify.com/v1/me", {
+    return fetch("https://api.spotify.com/v1/me", {
       headers: headers,
       method: "GET",
-    });
-    const json = await response.json();
-    console.log(json);
-    const userID = json.id;
-
-    //post playlist's title to current user's account
-    const playlistResponse = await fetch(
-      `https://api.spotify.com/v1/${userID}/playlists`,
-      {
-        headers: headers,
-        method: "POST",
-        body: JSON.stringify({ name: playlistTitle }),
-      }
-    );
-    //post track uri's to playlist newly entitled on current user's account
-    const jsonPlaylistResponse = await playlistResponse.json();
-    console.log(jsonPlaylistResponse);
-    const playlistID = jsonPlaylistResponse.id;
-    const tracksResponse = await fetch(
-      `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`,
-      {
-        headers: headers,
-        method: "POST",
-        body: JSON.stringify({ uris: trackURIs }),
-      }
-    );
-    const jsonTracksResponse = await tracksResponse.json();
-    console.log(jsonTracksResponse);
-    return jsonTracksResponse;
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((json) => {
+        userID = json.id;
+        //post playlist's title to current user's account
+        return fetch(`https://api.spotify.com/v1/${userID}/playlists`, {
+          headers: headers,
+          method: "POST",
+          body: JSON.stringify({ name: playlistTitle }),
+        })
+          .then((response) => {
+            console.log(response);
+            return response.json();
+          })
+          .then((json) => {
+            //post track uri's to playlist newly entitled on current user's account
+            const playlistID = json.id;
+            return fetch(
+              `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`,
+              {
+                headers: headers,
+                method: "POST",
+                body: JSON.stringify({ uris: trackURIs }),
+              }
+            );
+          });
+      });
   },
 };
 

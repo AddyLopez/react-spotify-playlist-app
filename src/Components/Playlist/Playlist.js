@@ -17,7 +17,7 @@ function Playlist({
     <section className="Playlist">
       <input onChange={handleTitleChange} defaultValue={playlistTitle} />
       <section>
-        <Tracklist playlist={playlist} onDelete={onDelete} isDelete={true} />
+        <Tracklist tracks={playlist} onDelete={onDelete} isDelete={true} />
       </section>
       <button className="save-playlist" onClick={onSave}>
         Save to Spotify

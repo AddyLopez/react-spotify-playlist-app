@@ -12,18 +12,20 @@ function SearchBar({ onSearch }) {
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
-    search();
   };
   return (
-    <>
+    <div className="SearchBar">
       <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
-      <input
-        type="text"
-        onChange={handleSearchTermChange}
-        placeholder="Search for a song, album, or artist"
-        aria-label="search button"
-      />
-    </>
+      <form onSubmit={search}>
+        <input
+          type="text"
+          name="query"
+          onChange={handleSearchTermChange}
+          placeholder="Search for a song, album, or artist"
+          aria-label="search button"
+        />
+      </form>
+    </div>
   );
 }
 

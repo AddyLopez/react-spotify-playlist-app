@@ -8,18 +8,14 @@ import Spotify from "../../util/Spotify.js";
 function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [playlistTitle, setPlaylistTitle] = useState("Playlist Title");
-  const [playlist, setPlaylist] = useState([
-    "track_one",
-    "track_two",
-    "track_three",
-  ]);
+  const [playlist, setPlaylist] = useState([]);
 
   const addTrack = (newTrack) => {
     if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
       return;
     } else {
       setPlaylist((previous) => {
-        [...previous, newTrack];
+        return [...previous, newTrack];
       });
     }
   };
@@ -36,14 +32,24 @@ function App() {
 
   const savePlaylist = () => {
     const trackURIs = playlist.map((track) => track.uri);
-    Spotify.savePlaylist(playlistTitle, trackURIs).then(() => {
-      setPlaylistTitle("New Playlist");
-      setPlaylist([]);
-    });
+    Spotify.savePlaylist(playlistTitle, trackURIs)
+      .then(() => {
+        setPlaylistTitle("New Playlist");
+        setPlaylist([]);
+      })
+      .catch((error) => {
+        console.error(`Error saving playlist: ${error}`);
+      });
   };
 
   const search = (searchTerm) => {
-    Spotify.search(searchTerm).then(setSearchResults);
+    Spotify.search(searchTerm)
+      .then((results) => {
+        return setSearchResults(results);
+      })
+      .catch((error) => {
+        console.error(`Error searching ${error}`);
+      });
   };
 
   return (

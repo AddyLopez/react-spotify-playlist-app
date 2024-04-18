@@ -2,11 +2,11 @@ import React from "react";
 import "./Tracklist.css";
 import Track from "../Track/Track.js";
 
-function Tracklist({ isDelete, onAdd, onDelete, searchResults }) {
+function Tracklist({ tracks, isDelete, onAdd, onDelete }) {
   return (
     <>
       <p>Hello, from Tracklist!</p>
-      {searchResults.map((track) => {
+      {tracks.map((track) => {
         return (
           <Track
             key={track.id}
