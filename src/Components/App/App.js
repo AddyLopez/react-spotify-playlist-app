@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./App.css";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
@@ -10,27 +10,30 @@ function App() {
   const [playlistTitle, setPlaylistTitle] = useState("Playlist Title");
   const [playlist, setPlaylist] = useState([]);
 
-  const addTrack = (newTrack) => {
-    if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
-      return;
-    } else {
-      setPlaylist((previous) => {
-        return [...previous, newTrack];
-      });
-    }
-  };
+  const addTrack = useCallback(
+    (newTrack) => {
+      if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
+        return;
+      } else {
+        setPlaylist((previous) => {
+          return [...previous, newTrack];
+        });
+      }
+    },
+    [playlist]
+  );
 
-  const deleteTrack = (track) => {
+  const deleteTrack = useCallback((track) => {
     setPlaylist((playlist) => {
       playlist.filter((savedTrack) => savedTrack.id !== track.id);
     });
-  };
+  }, []);
 
-  const updatePlaylistTitle = (newTitle) => {
+  const updatePlaylistTitle = useCallback((newTitle) => {
     setPlaylistTitle(newTitle);
-  };
+  }, []);
 
-  const savePlaylist = () => {
+  const savePlaylist = useCallback(() => {
     const trackURIs = playlist.map((track) => track.uri);
     Spotify.savePlaylist(playlistTitle, trackURIs)
       .then(() => {
@@ -40,9 +43,9 @@ function App() {
       .catch((error) => {
         console.error(`Error saving playlist: ${error}`);
       });
-  };
+  }, [playlistTitle, playlist]);
 
-  const search = (searchTerm) => {
+  const search = useCallback((searchTerm) => {
     Spotify.search(searchTerm)
       .then((results) => {
         return setSearchResults(results);
@@ -50,7 +53,7 @@ function App() {
       .catch((error) => {
         console.error(`Error searching ${error}`);
       });
-  };
+  }, []);
 
   return (
     <div className="App">

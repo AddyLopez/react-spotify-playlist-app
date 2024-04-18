@@ -27,82 +27,95 @@ const Spotify = {
       window.location = apiURL;
     }
   },
-  search(searchTerm) {
+  async search(searchTerm) {
     // might need to refactor to a promise chain using the then method.
-    const token = Spotify.getAccessToken();
-    return fetch(
-      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((json) => {
-        if (!json.tracks) {
-          return [];
-        } else {
-          const tracks = json.tracks.items.map((item) => {
-            return {
-              id: item.id,
-              name: item.name,
-              artist: item.artists[0].name,
-              album: item.album.name,
-              uri: item.uri,
-            };
-          });
-          console.log(tracks);
-          return tracks;
-        }
+    const token = await Spotify.getAccessToken();
+    const searchURL = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`;
+    const searchResponse = await fetch(searchURL, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(searchResponse);
+    const jsonSearchResponse = await searchResponse.json();
+    if (!jsonSearchResponse.tracks) {
+      console.log("No tracks found");
+      return [];
+    } else {
+      return jsonSearchResponse.tracks.items.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+          artist: item.artists[0].name,
+          album: item.album.name,
+          uri: item.uri,
+        };
       });
+      //console.log(tracks);
+      //return tracks;
+    }
   },
-  savePlaylist(playlistTitle, trackURIs) {
+  async savePlaylist(playlistTitle, trackURIs) {
     if (!playlistTitle || !trackURIs) {
       return;
     }
-    const token = Spotify.getAccessToken();
+    const token = await Spotify.getAccessToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
+    const currentUserURL = "https://api.spotify.com/v1/me";
     let userID;
     //get current user's id
-    return fetch("https://api.spotify.com/v1/me", {
+    const currentUserResponse = await fetch(currentUserURL, {
       headers: headers,
       method: "GET",
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((json) => {
-        userID = json.id;
-        //post playlist's title to current user's account
-        return fetch(`https://api.spotify.com/v1/${userID}/playlists`, {
-          headers: headers,
-          method: "POST",
-          body: JSON.stringify({ name: playlistTitle }),
-        })
-          .then((response) => {
-            console.log(response);
-            return response.json();
-          })
-          .then((json) => {
-            //post track uri's to playlist newly entitled on current user's account
-            const playlistID = json.id;
-            return fetch(
-              `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`,
-              {
-                headers: headers,
-                method: "POST",
-                body: JSON.stringify({ uris: trackURIs }),
-              }
-            );
-          });
-      });
+    });
+    console.log(currentUserResponse);
+    const jsonCurrentUserResponse = await currentUserResponse.json();
+    userID = jsonCurrentUserResponse.id;
+    //post playlist's title to current user's account
+    const playlistsURL = `https://api.spotify.com/v1/${userID}/playlists`;
+    const playlistsResponse = await fetch(playlistsURL, {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({ name: playlistTitle }),
+    });
+    console.log(playlistsResponse);
+    const jsonPlaylistsResponse = await playlistsResponse.json();
+    //post track uri's to playlist newly entitled on current user's account
+    const playlistID = jsonPlaylistsResponse.id;
+    const postPlaylistTracksURL = `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`;
+    return await fetch(postPlaylistTracksURL, {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({ uris: trackURIs }),
+    });
+  },
+  async troubleShoot(searchTerm) {
+    const token = await Spotify.getAccessToken();
+    const searchURL = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`;
+    const searchResponse = await fetch(searchURL, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(searchResponse);
+    /*const jsonSearchResponse = await searchResponse.json();
+    if (!jsonSearchResponse.tracks) {
+      console.log("No tracks found");
+      return [];
+    } else {
+      return jsonSearchResponse.tracks.items.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+          artist: item.artists[0].name,
+          album: item.album.name,
+          uri: item.uri,
+        };
+      });*/
+    //console.log(tracks);
+    //return tracks;
   },
 };
 
