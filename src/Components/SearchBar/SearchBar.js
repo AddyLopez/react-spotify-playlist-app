@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import "./SearchBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -6,16 +6,15 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchTermChange = useCallback((event) => {
+  const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
-  }, []);
+  };
 
   /* const search = useCallback(() => {
     onSearch(searchTerm);
   }, [onSearch, searchTerm]);*/
 
-  const search = (event) => {
-    event.preventDefault();
+  const search = () => {
     onSearch(searchTerm);
   };
 
