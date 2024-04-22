@@ -1,5 +1,5 @@
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectURI = "https://ubiquitous-empanada-472d76.netlify.app";
+const redirectURI = "https://ubiquitous-empanada-472d76.netlify.app/";
 
 let accessToken;
 
