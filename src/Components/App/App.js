@@ -3,7 +3,7 @@ import "./App.css";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
 import Playlist from "../Playlist/Playlist.js";
-import Spotify from "../../util/Spotify.js";
+import { Spotify } from "../../util/Spotify.js";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -11,12 +11,14 @@ function App() {
   const [playlist, setPlaylist] = useState([]);
 
   const addTrack = (newTrack) => {
-    if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
-      return;
+    const trackExists = playlist.find(
+      (savedTrack) => savedTrack.id === newTrack.id
+    );
+    const trackIsNew = playlist.concat(newTrack);
+    if (trackExists) {
+      console.log("Track is already on this playlist.");
     } else {
-      setPlaylist((previous) => {
-        return [...previous, newTrack];
-      });
+      setPlaylist(trackIsNew);
     }
   };
 

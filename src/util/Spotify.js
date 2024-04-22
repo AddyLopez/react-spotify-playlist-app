@@ -28,7 +28,7 @@ const Spotify = {
   search(searchTerm) {
     // might need to refactor to a promise chain using the then method.
     accessToken = Spotify.getAccessToken();
-    const searchURL = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`;
+    const searchURL = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&limit=10`;
     return fetch(searchURL, {
       method: "GET",
       headers: {
@@ -45,6 +45,7 @@ const Spotify = {
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
+          image: track.album.images[0].url,
           album: track.album.name,
           uri: track.uri,
         }));
@@ -67,7 +68,7 @@ const Spotify = {
       .then((response) => response.json())
       .then((jsonResponse) => {
         userID = jsonResponse.id;
-        const playlistsURL = `https://api.spotify.com/v1/${userID}/playlists`;
+        const playlistsURL = `https://api.spotify.com/v1/users/${userID}/playlists`;
         //post playlist's title to current user's account
         return fetch(playlistsURL, {
           headers: headers,
@@ -78,7 +79,7 @@ const Spotify = {
           .then((jsonResponse) => {
             //post track uri's to playlist newly entitled on current user's account
             const playlistID = jsonResponse.id;
-            const postPlaylistTracksURL = `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`;
+            const postPlaylistTracksURL = `https://api.spotify.com/v1/playlists/${playlistID}/tracks`;
             return fetch(postPlaylistTracksURL, {
               headers: headers,
               method: "POST",
@@ -89,4 +90,4 @@ const Spotify = {
   },
 };
 
-export default Spotify;
+export { Spotify };
