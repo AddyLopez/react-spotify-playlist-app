@@ -25,9 +25,9 @@ const Spotify = {
     const apiURL = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
     window.location = apiURL;
   },
-  async search(searchTerm) {
+  search(searchTerm) {
     // might need to refactor to a promise chain using the then method.
-    accessToken = await Spotify.getAccessToken();
+    accessToken = Spotify.getAccessToken();
     const searchURL = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&limit=10`;
     return fetch(searchURL, {
       method: "GET",
@@ -51,11 +51,11 @@ const Spotify = {
         }));
       });
   },
-  async savePlaylist(playlistTitle, trackURIs) {
+  savePlaylist(playlistTitle, trackURIs) {
     if (!playlistTitle || !trackURIs) {
       return;
     }
-    const token = await Spotify.getAccessToken();
+    const token = Spotify.getAccessToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
