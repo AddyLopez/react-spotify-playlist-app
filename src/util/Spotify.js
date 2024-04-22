@@ -10,7 +10,7 @@ const Spotify = {
       return accessToken;
     }
 
-    const tokenIsMatch = window.location.href.match(/accesstoken=([^&]*)/); //window.location.href grabs the URL of the current page
+    const tokenIsMatch = window.location.href.match(/access_token=([^&]*)/); //window.location.href grabs the URL of the current page
     const expirationIsSet = window.location.href.match(/expires_in=([^&]*)/);
     if (tokenIsMatch && expirationIsSet) {
       // If access token is not already set, check the URL to see if token has just been obtained and is set to expire.
