@@ -1,20 +1,14 @@
-import React, { useCallback } from "react";
+import React from "react";
 import "./Track.css";
 
 function Track({ isDelete, onAdd, onDelete, track }) {
-  const addTrack = useCallback(
-    (event) => {
-      onAdd(track);
-    },
-    [onAdd, track]
-  );
+  const addTrack = () => {
+    onAdd(track);
+  };
 
-  const deleteTrack = useCallback(
-    (event) => {
-      onDelete(track);
-    },
-    [onDelete, track]
-  );
+  const deleteTrack = () => {
+    onDelete(track);
+  };
 
   const renderButton = () => {
     if (isDelete) {
