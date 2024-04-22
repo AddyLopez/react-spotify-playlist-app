@@ -10,10 +10,6 @@ function SearchBar({ onSearch }) {
     setSearchTerm(event.target.value);
   };
 
-  /* const search = useCallback(() => {
-    onSearch(searchTerm);
-  }, [onSearch, searchTerm]);*/
-
   const search = () => {
     onSearch(searchTerm);
   };
