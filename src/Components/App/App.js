@@ -44,7 +44,7 @@ function App() {
 
   const search = (searchTerm) => {
     Spotify.search(searchTerm).then((results) => {
-      return setSearchResults(results);
+      setSearchResults(results);
     });
   };
 
