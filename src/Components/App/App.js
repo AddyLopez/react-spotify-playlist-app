@@ -43,13 +43,9 @@ function App() {
   };
 
   const search = (searchTerm) => {
-    Spotify.search(searchTerm)
-      .then((results) => {
-        return setSearchResults(results);
-      })
-      .catch((error) => {
-        console.error(`Error searching ${error}`);
-      });
+    Spotify.search(searchTerm).then((results) => {
+      return setSearchResults(results);
+    });
   };
 
   return (
