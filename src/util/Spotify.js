@@ -1,7 +1,7 @@
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const redirectURI = "https://ubiquitous-empanada-472d76.netlify.app/";
 
-let accessToken;
+let accessToken = "";
 
 const Spotify = {
   getAccessToken() {
@@ -40,7 +40,7 @@ const Spotify = {
         if (!jsonResponse) {
           console.error("Response error");
         }
-        console.log(accessToken, jsonResponse);
+        console.log(accessToken);
         return jsonResponse.tracks.items.map((track) => ({
           id: track.id,
           name: track.name,
