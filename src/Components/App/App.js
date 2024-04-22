@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import SearchBar from "../SearchBar/SearchBar.js";
 import SearchResults from "../SearchResults/SearchResults.js";
@@ -10,30 +10,27 @@ function App() {
   const [playlistTitle, setPlaylistTitle] = useState("Playlist Title");
   const [playlist, setPlaylist] = useState([]);
 
-  const addTrack = useCallback(
-    (newTrack) => {
-      if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
-        return;
-      } else {
-        setPlaylist((previous) => {
-          return [...previous, newTrack];
-        });
-      }
-    },
-    [playlist]
-  );
+  const addTrack = (newTrack) => {
+    if (playlist.some((savedTrack) => savedTrack.id === newTrack.id)) {
+      return;
+    } else {
+      setPlaylist((previous) => {
+        return [...previous, newTrack];
+      });
+    }
+  };
 
-  const deleteTrack = useCallback((track) => {
+  const deleteTrack = (track) => {
     setPlaylist((playlist) => {
       playlist.filter((savedTrack) => savedTrack.id !== track.id);
     });
-  }, []);
+  };
 
-  const updatePlaylistTitle = useCallback((newTitle) => {
+  const updatePlaylistTitle = (newTitle) => {
     setPlaylistTitle(newTitle);
-  }, []);
+  };
 
-  const savePlaylist = useCallback(() => {
+  const savePlaylist = () => {
     const trackURIs = playlist.map((track) => track.uri);
     Spotify.savePlaylist(playlistTitle, trackURIs)
       .then(() => {
@@ -43,7 +40,7 @@ function App() {
       .catch((error) => {
         console.error(`Error saving playlist: ${error}`);
       });
-  }, [playlistTitle, playlist]);
+  };
 
   const search = (searchTerm) => {
     Spotify.search(searchTerm)
