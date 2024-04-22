@@ -3,8 +3,6 @@ import "./SearchBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-import Spotify from "../../util/Spotify.js";
-
 function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -18,7 +16,7 @@ function SearchBar({ onSearch }) {
 
   const search = (event) => {
     event.preventDefault();
-    Spotify.troubleShoot(searchTerm);
+    onSearch(searchTerm);
   };
 
   return (

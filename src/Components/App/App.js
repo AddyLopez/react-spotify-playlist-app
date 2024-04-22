@@ -45,15 +45,17 @@ function App() {
       });
   }, [playlistTitle, playlist]);
 
-  const search = useCallback((searchTerm) => {
-    Spotify.search(searchTerm)
+  const search = (searchTerm) => {
+    const results = Spotify.search(searchTerm);
+    setSearchResults(results);
+    /*Spotify.search(searchTerm)
       .then((results) => {
         return setSearchResults(results);
       })
       .catch((error) => {
         console.error(`Error searching ${error}`);
-      });
-  }, []);
+      });*/
+  };
 
   return (
     <div className="App">
