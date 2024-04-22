@@ -49,41 +49,42 @@ const Spotify = {
         }));
       });
   },
-  async savePlaylist(playlistTitle, trackURIs) {
+  savePlaylist(playlistTitle, trackURIs) {
     if (!playlistTitle || !trackURIs) {
       return;
     }
-    const token = await Spotify.getAccessToken();
+    const token = Spotify.getAccessToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     const currentUserURL = "https://api.spotify.com/v1/me";
     let userID;
     //get current user's id
-    const currentUserResponse = await fetch(currentUserURL, {
+    return fetch(currentUserURL, {
       headers: headers,
-      method: "GET",
-    });
-    console.log(currentUserResponse);
-    const jsonCurrentUserResponse = await currentUserResponse.json();
-    userID = jsonCurrentUserResponse.id;
-    //post playlist's title to current user's account
-    const playlistsURL = `https://api.spotify.com/v1/${userID}/playlists`;
-    const playlistsResponse = await fetch(playlistsURL, {
-      headers: headers,
-      method: "POST",
-      body: JSON.stringify({ name: playlistTitle }),
-    });
-    console.log(playlistsResponse);
-    const jsonPlaylistsResponse = await playlistsResponse.json();
-    //post track uri's to playlist newly entitled on current user's account
-    const playlistID = jsonPlaylistsResponse.id;
-    const postPlaylistTracksURL = `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`;
-    return await fetch(postPlaylistTracksURL, {
-      headers: headers,
-      method: "POST",
-      body: JSON.stringify({ uris: trackURIs }),
-    });
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        userID = jsonResponse.id;
+        const playlistsURL = `https://api.spotify.com/v1/${userID}/playlists`;
+        //post playlist's title to current user's account
+        return fetch(playlistsURL, {
+          headers: headers,
+          method: "POST",
+          body: JSON.stringify({ name: playlistTitle }),
+        })
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            //post track uri's to playlist newly entitled on current user's account
+            const playlistID = jsonResponse.id;
+            const postPlaylistTracksURL = `https://api.spotify.com/v1/${userID}/playlists/${playlistID}/tracks`;
+            return fetch(postPlaylistTracksURL, {
+              headers: headers,
+              method: "POST",
+              body: JSON.stringify({ uris: trackURIs }),
+            });
+          });
+      });
   },
 };
 
