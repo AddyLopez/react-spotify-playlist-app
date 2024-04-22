@@ -25,30 +25,30 @@ const Spotify = {
     const apiURL = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
     window.location = apiURL;
   },
-  async search(searchTerm) {
+  search(searchTerm) {
     // might need to refactor to a promise chain using the then method.
     accessToken = Spotify.getAccessToken();
     const searchURL = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`;
-    const searchResponse = await fetch(searchURL, {
+    return fetch(searchURL, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    });
-    const jsonSearchResponse = await searchResponse.json();
-    if (!jsonSearchResponse) {
-      console.error("Response error");
-      return [];
-    }
-    return jsonSearchResponse.tracks.items.map((track) => ({
-      id: track.id,
-      name: track.name,
-      artist: track.artists[0].name,
-      album: track.album.name,
-      uri: track.uri,
-    }));
-    //console.log(tracks);
-    //return tracks;
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        if (!jsonResponse) {
+          console.error("Response error");
+          return [];
+        }
+        return jsonResponse.tracks.items.map((track) => ({
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri,
+        }));
+      });
   },
   async savePlaylist(playlistTitle, trackURIs) {
     if (!playlistTitle || !trackURIs) {

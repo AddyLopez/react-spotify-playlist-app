@@ -46,15 +46,13 @@ function App() {
   }, [playlistTitle, playlist]);
 
   const search = (searchTerm) => {
-    const results = Spotify.search(searchTerm);
-    setSearchResults(results);
-    /*Spotify.search(searchTerm)
+    Spotify.search(searchTerm)
       .then((results) => {
         return setSearchResults(results);
       })
       .catch((error) => {
         console.error(`Error searching ${error}`);
-      });*/
+      });
   };
 
   return (
