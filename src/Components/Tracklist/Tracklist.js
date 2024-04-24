@@ -5,7 +5,6 @@ import Track from "../Track/Track.js";
 function Tracklist({ tracks, isDelete, onAdd, onDelete }) {
   return (
     <>
-      <p>Hello, from Tracklist!</p>
       {tracks.map((track) => {
         return (
           <Track
