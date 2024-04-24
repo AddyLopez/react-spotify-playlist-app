@@ -32,7 +32,13 @@
 }
 
 .SearchBar button {
+  background-color: black;
+  border-left: 2px solid hsl(143, 100%, 48%);
+  border-top: 2px solid hsl(143, 100%, 48%);
+  border-right: 2px solid hsl(143, 100%, 18%);
+  border-bottom: 2px solid hsl(143 100% 18% / 1);
   border-radius: 3px;
+  color: hsl(143, 100%, 48%);
   display: block;
   font-size: 20px;
   margin: 0 auto;
