@@ -4,11 +4,17 @@ main {
 }
 
 h1 {
+  font-size: 32px;
   margin: 25px 0;
 }
 
+h2 {
+  font-size: 26px;
+}
+
 p {
-  margin: 0;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 footer {

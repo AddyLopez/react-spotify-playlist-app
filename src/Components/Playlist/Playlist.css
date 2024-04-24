@@ -7,8 +7,28 @@ section.Playlist {
   padding: 20px;
 }
 
+.Playlist input {
+  border: 0px;
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
+  letter-spacing: 2.5px;
+  padding: 8px;
+  margin: 10px 0;
+  text-align: center;
+}
+
 button.save-playlist {
-  border-radius: 8px;
-  margin-top: 15px;
-  padding: 4px;
+  background-color: black;
+  border-left: 2px solid hsl(143, 100%, 48%);
+  border-top: 2px solid hsl(143, 100%, 48%);
+  border-right: 2px solid hsl(143, 100%, 18%);
+  border-bottom: 2px solid hsl(143 100% 18% / 1);
+  border-radius: 3px;
+  color: hsl(143, 100%, 48%);
+  display: block;
+  font-size: 20px;
+  margin: 25px auto 0 auto;
+  padding: 8px;
 }

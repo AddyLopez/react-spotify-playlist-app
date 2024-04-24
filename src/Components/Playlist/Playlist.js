@@ -15,7 +15,7 @@ function Playlist({
 
   return (
     <section className="Playlist">
-      <input onChange={handleTitleChange} defaultValue={playlistTitle} />
+      <input onChange={handleTitleChange} placeholder={playlistTitle} />
       <section>
         <Tracklist tracks={playlist} onDelete={onDelete} isDelete={true} />
       </section>
