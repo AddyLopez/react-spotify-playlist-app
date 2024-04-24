@@ -67,6 +67,7 @@ function App() {
           onTitleChange={updatePlaylistTitle}
         />
       </main>
+      <footer>Coded by Addy López</footer>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 section.SearchResults {
-  border: 1px solid #000;
-  border-radius: 6px;
+  border: 3px dashed #00f35e;
+  border-radius: 3px;
   margin-right: 25px;
   padding: 20px;
 }

@@ -16,13 +16,15 @@ function SearchBar({ onSearch }) {
 
   return (
     <div className="SearchBar">
-      <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
-      <input
-        type="text"
-        onChange={handleSearchTermChange}
-        placeholder="Search for a song, album, or artist"
-        aria-label="search button"
-      />
+      <div className="search-input">
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
+        <input
+          type="text"
+          onChange={handleSearchTermChange}
+          placeholder="Search for a song!"
+          aria-label="search button"
+        />
+      </div>
       <button onClick={search}>SEARCH</button>
     </div>
   );
