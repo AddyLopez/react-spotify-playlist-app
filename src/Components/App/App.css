@@ -19,8 +19,9 @@ p {
 }
 
 footer {
+  background-color: hsl(0, 0%, 0%);
   position: fixed;
   bottom: 0;
-  margin-bottom: 25px;
+  padding: 10px 0;
   width: 100%;
 }
