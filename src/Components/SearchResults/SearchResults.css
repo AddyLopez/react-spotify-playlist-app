@@ -1,5 +1,7 @@
 section.SearchResults {
-  border: 3px dashed #00f35e;
+  /*border: 3px dashed #00f35e;*/
+  border-bottom: 2px dashed #00f35e;
+  border-right: 2px dashed #00f35e;
   border-radius: 3px;
   margin-right: 25px;
   padding: 20px;

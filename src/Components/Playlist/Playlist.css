@@ -1,5 +1,7 @@
 section.Playlist {
-  border: 3px dashed hsl(143, 100%, 48%);
+  /*border: 3px dashed hsl(143, 100%, 48%);*/
+  border-left: 2px dashed #00f35e;
+  border-top: 2px dashed #00f35e;
   border-radius: 3px;
   margin-left: 25px;
   padding: 20px;
