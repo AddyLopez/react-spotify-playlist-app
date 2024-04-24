@@ -1,6 +1,7 @@
 main {
   display: flex;
   justify-content: center;
+  padding: 25px 0;
 }
 
 h1 {
